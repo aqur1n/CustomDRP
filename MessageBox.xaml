@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomDRP"
         mc:Ignorable="d"
-        Title="Сustom Discord Rich Presence" Height="139" Width="400" Background="#FF36393F" ResizeMode="NoResize" WindowState="Normal" WindowStyle="None" SnapsToDevicePixels="True" StateChanged="Window_StateChanged" Icon="/icon.png">
+        Title="Сustom Discord Rich Presence" Height="139" Width="400" Background="#FF36393F" ResizeMode="NoResize" WindowState="Normal" WindowStyle="None" SnapsToDevicePixels="True" StateChanged="Window_StateChanged" Icon="Resources/icon.png">
     <Grid>
         <Rectangle Height="20" VerticalAlignment="Top" Fill="#FF202225" HorizontalAlignment="Center" Width="400" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
         <TextBlock x:Name="CloseText" HorizontalAlignment="Right" Margin="380,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFB5B7BA" Width="20" Height="20" FontFamily="Segoe UI Symbol" TextDecorations="{x:Null}" FontSize="14" Text="X" TextAlignment="Center" MouseLeftButtonUp="CloseText_MouseLeftButtonUp" MouseEnter="CloseText_MouseEnter" MouseLeave="CloseText_MouseLeave" Cursor="Hand"/>

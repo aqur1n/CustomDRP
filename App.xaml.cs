@@ -32,7 +32,7 @@ namespace CustomDRP
                 Directory.CreateDirectory(Path);
                 using (FileStream fstream = new(Path + "\\config.cfg", FileMode.OpenOrCreate))
                 {
-                    byte[] buffer = Encoding.Default.GetBytes("AppID=Айди приложения\nDetails=Текст\nState=Подпись\nButtons= \nSmallIcon=0\nEnable=0");
+                    byte[] buffer = Encoding.Default.GetBytes("AppID=Айди приложения\nDetails=Текст\nState=Подпись\nDate= \nButtons= \nSmallIcon=0\nEnable=0");
                     fstream.Write(buffer, 0, buffer.Length);
                 }
             }
@@ -49,8 +49,7 @@ namespace CustomDRP
             }
             else
             {
-                MessageWindow window = new("Запуск с неправильным(и) аргументом(ами)!");
-                window.Show();
+                _ = new MessageWindow("Запуск с неправильным(и) аргументом(ами)!");
             }
         }
     }

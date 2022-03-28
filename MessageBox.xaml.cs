@@ -17,6 +17,8 @@ namespace CustomDRP
 
             TitleBlock.Text = Title;
             TextBlock.Text = Text;
+
+            this.Show();
         }
 
         public MessageWindow(string Text)
@@ -24,6 +26,8 @@ namespace CustomDRP
             InitializeComponent();
 
             TextBlock.Text = Text;
+
+            this.Show();
         }
         
 

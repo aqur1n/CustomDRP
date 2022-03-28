@@ -7,11 +7,30 @@
     <UseWPF>true</UseWPF>
     <StartupObject>CustomDRP.App</StartupObject>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <IsPublishable>False</IsPublishable>
+    <SignAssembly>False</SignAssembly>
+    <Company>$(Authors)</Company>
+    <PackageIcon>Resources\icon.png</PackageIcon>
+    <FileVersion>0.9.1</FileVersion>
+    <Copyright>aqur1n-lab</Copyright>
+    <Description>aqur1n-lab</Description>
+    <NeutralLanguage>ru</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="8a8375ab7908384e1fd6efe408284203.png" />
-    <None Remove="icon.png" />
+    <None Remove="Resources\x.png" />
+    <None Remove="\Resources\8a8375ab7908384e1fd6efe408284203.png" />
+    <None Remove="Fonts\VAG World.ttf" />
+    <None Remove="\Resources\plus.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,18 +46,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="icon.ico" />
+    <Content Include="Resources\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="8a8375ab7908384e1fd6efe408284203.png">
+    <Resource Include="Fonts\VAG World.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="icon.png" />
+    <Resource Include="Resources\8a8375ab7908384e1fd6efe408284203.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\icon.png" />
+    <Resource Include="Resources\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\x.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

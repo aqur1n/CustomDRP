@@ -41,11 +41,32 @@ namespace CustomDRP
             };
             if (data["SmallIcon"] == "1") { assets.SmallImageKey = "2"; }
 
+            Button[] Buttons = new Button[2];
+
+            if (data["Buttons"] != " " && data["Buttons"] != ",;,")
+            {
+                int count = 0;
+                foreach (string button in data["Buttons"].Split(";"))
+                {
+                    string[] b = button.Split(",");
+
+                    Buttons[count] = new Button
+                    {
+                        Label = b[0],
+                        Url = b[1]
+                    };
+
+                    count++;
+                }
+            }
+
             Client.SetPresence(new RichPresence()
             {
                 Assets = assets,
                 Details = data["Details"],
-                State = data["State"]
+                State = data["State"],
+                Buttons = Buttons
+
             });
         }
         public void Start()

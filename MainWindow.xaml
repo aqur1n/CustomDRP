@@ -5,30 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CustomDRP"
         mc:Ignorable="d"
-        Title="Сustom Discord Rich Presence" Height="514" Width="400" Background="#FF36393F" ResizeMode="NoResize" WindowState="Normal" WindowStyle="None" SnapsToDevicePixels="True" StateChanged="Window_StateChanged" Icon="/icon.png" PreviewKeyDown="Window_PreviewKeyDown" PreviewMouseDown="Window_PreviewMouseDown">
+        Title="Сustom Discord Rich Presence" Height="588" Width="400" Background="#FF36393F" ResizeMode="NoResize" WindowState="Normal" WindowStyle="None" SnapsToDevicePixels="True" StateChanged="Window_StateChanged" Icon="/Resources/icon.png" PreviewKeyDown="Window_PreviewKeyDown" PreviewMouseDown="Window_PreviewMouseDown">
     <Grid>
-        <Image Margin="-144,236,0,0" Source="/8a8375ab7908384e1fd6efe408284203.png" Stretch="UniformToFill"/>
+        <Image Source="/Resources/8a8375ab7908384e1fd6efe408284203.png" Stretch="UniformToFill" VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxWidth="544.097879655804" MaxHeight="278" MinWidth="544.097879655804" FlowDirection="LeftToRight" Width="539" MinHeight="278"/>
         <Rectangle Height="20" VerticalAlignment="Top" Fill="#FF202225" HorizontalAlignment="Center" Width="400" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown"/>
-        <TextBlock x:Name="CloseText" HorizontalAlignment="Right" Margin="380,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFB5B7BA" Width="20" Height="20" FontFamily="Segoe UI Symbol" TextDecorations="{x:Null}" FontSize="14" Text="X" TextAlignment="Center" MouseLeftButtonUp="CloseText_MouseLeftButtonUp" MouseEnter="CloseText_MouseEnter" MouseLeave="CloseText_MouseLeave" Cursor="Hand"/>
+        <TextBlock x:Name="CloseText" HorizontalAlignment="Right" Margin="380,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFB5B7BA" Width="20" Height="20" TextDecorations="{x:Null}" FontSize="14" Text="X" TextAlignment="Center" MouseLeftButtonUp="CloseText_MouseLeftButtonUp" MouseEnter="CloseText_MouseEnter" MouseLeave="CloseText_MouseLeave" Cursor="Hand"/>
         <TextBlock x:Name="MinimizeText" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFB5B7BA" Width="20" Height="20" FontFamily="Segoe UI Symbol" TextDecorations="{x:Null}" FontSize="14" Text="—" TextAlignment="Center" MouseLeftButtonUp="MinimizeText_MouseLeftButtonUp" Cursor="Hand" Padding="0,0,0,0" Margin="0,0,20,0" MouseEnter="MinimizeText_MouseEnter" MouseLeave="MinimizeText_MouseLeave"/>
 
         <Grid Margin="0,10,0,-10">
-            <Rectangle HorizontalAlignment="Center" Height="459" Margin="0,32,0,0" VerticalAlignment="Top" Width="298" Fill="#FF18191C" RadiusX="8" RadiusY="8"/>
+            <Rectangle HorizontalAlignment="Center" Margin="0,32,0,23" Width="298" Fill="#FF18191C" RadiusX="8" RadiusY="8"/>
             <Grid>
                 <Ellipse HorizontalAlignment="Left" Height="82" Margin="72,53,0,0" Stroke="#FFEC6067" VerticalAlignment="Top" Width="82" Fill="#FFEC6067"/>
                 <Ellipse HorizontalAlignment="Left" Height="26" Margin="127,108,0,0" Stroke="#FF18191C" VerticalAlignment="Top" Width="26" Fill="#FF18191C"/>
                 <Ellipse HorizontalAlignment="Left" Height="18" Margin="131,112,0,0" Stroke="#FF3BA45D" VerticalAlignment="Top" Width="18" Fill="#FF3BA45C"/>
             </Grid>
-            
+
             <Ellipse HorizontalAlignment="Left" Height="29" Margin="310,42,0,0" Stroke="#FF151518" VerticalAlignment="Top" Width="29" Fill="#FF151518"/>
 
             <Ellipse HorizontalAlignment="Left" Height="16" Margin="316,111,0,0" Stroke="#FFEC6067" VerticalAlignment="Top" Width="16" Fill="#FFEC6067"/>
 
             <Grid>
-                <Label Content="#9546" HorizontalAlignment="Left" Margin="168,148,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8E" FontWeight="Bold" FontSize="22"/>
-                <Label Content="by aqur1n" HorizontalAlignment="Left" Margin="61,147,0,0" VerticalAlignment="Top" Foreground="#FFD6D6D6" FontWeight="Bold" FontSize="22"/>
+                <Label Content="by             #9546" HorizontalAlignment="Left" Margin="61,148,0,0" VerticalAlignment="Top" Foreground="#FF8C8C8E" FontWeight="Bold" FontSize="22"/>
+                <Label Content="     aqur1n" HorizontalAlignment="Left" Margin="61,147,0,0" VerticalAlignment="Top" Foreground="#FFD6D6D6" FontWeight="Bold" FontSize="22"/>
             </Grid>
-            
+
             <Rectangle HorizontalAlignment="Center" Height="1" Margin="0,196,0,0" Stroke="#FF343438" VerticalAlignment="Top" Width="269"/>
 
             <TextBlock Margin="66,206,228,0" TextWrapping="Wrap" Text="ОБО МНЕ" VerticalAlignment="Top" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold"/>
@@ -47,20 +47,34 @@
             </Grid>
 
             <Grid>
-                <TextBox x:Name="AppId" HorizontalAlignment="Left" Margin="132,287,0,0" TextWrapping="Wrap" Text="Айди приложения" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Bold" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" FontSize="16" AutomationProperties.HelpText="Айди приложения" AutomationProperties.IsOffscreenBehavior="Default" MaxLength="18" MaxLines="1"/>
-                <TextBox x:Name="Details" HorizontalAlignment="Left" Margin="132,312,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Верхний текст" AutomationProperties.HelpText="Верхний текст" MaxLines="1" MaxLength="20"/>
-                <TextBox x:Name="State" HorizontalAlignment="Left" Margin="132,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" AutomationProperties.HelpText="Подпись" Text="Подпись" Visibility="Visible" VerticalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="20"/>
+                <TextBox x:Name="AppId" HorizontalAlignment="Left" Margin="132,287,0,0" TextWrapping="Wrap" Text="Айди приложения" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Bold" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" FontSize="16" AutomationProperties.HelpText="Айди приложения" AutomationProperties.IsOffscreenBehavior="Default" MaxLength="18" MaxLines="1" VerticalScrollBarVisibility="Disabled"/>
+                <TextBox x:Name="Details" HorizontalAlignment="Left" Margin="132,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" AutomationProperties.HelpText="Верхний текст" MaxLines="1" MaxLength="29" Height="18" VerticalScrollBarVisibility="Disabled" Text="Верхний текст"/>
+                <TextBox x:Name="State" HorizontalAlignment="Left" Margin="132,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Background="{x:Null}" Foreground="#FFAFB1B4" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" AutomationProperties.HelpText="Подпись" Text="Подпись" Visibility="Visible" VerticalScrollBarVisibility="Disabled" MaxLines="1" MaxLength="29" Height="18"/>
             </Grid>
-            
-            <TextBlock Margin="67,371,227,0" TextWrapping="Wrap" Text="НЕТ РОЛЕЙ" VerticalAlignment="Top" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold"/>
 
-            <Grid>
-                <TextBlock x:Name="NoteTitle" Margin="68,410,226,0" TextWrapping="Wrap" Text="ЗАМЕТКА" VerticalAlignment="Top" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold"/>
-                <Rectangle x:Name="NoteBox" HorizontalAlignment="Center" Height="36" Margin="0,434,0,0" Stroke="#FF202225" VerticalAlignment="Top" Width="264" RadiusX="8" RadiusY="8" Fill="#FF202225"/>
-                <TextBlock x:Name="GuideTextBlock" HorizontalAlignment="Center" Margin="0,444,0,0" TextWrapping="Wrap" Text="Гайд на все приложение." VerticalAlignment="Top" Foreground="#FFAFB1B4" Cursor="Hand" MouseEnter="GuideTextBlock_MouseEnter" MouseLeave="GuideTextBlock_MouseLeave" Width="248" PreviewMouseLeftButtonDown="GuideTextBlock_PreviewMouseLeftButtonDown"/>
-            </Grid>
-            
-            <TextBlock x:Name="StopTextBlock" HorizontalAlignment="Center" Margin="0,475,0,0" TextWrapping="Wrap" Text="Приостановить работу данного приложения." VerticalAlignment="Top" Foreground="#FFAFB1B4" FontSize="9" Cursor="Hand" PreviewMouseLeftButtonDown="StopTextBlock_PreviewMouseLeftButtonDown" MouseEnter="StopTextBlock_MouseEnter" MouseLeave="StopTextBlock_MouseLeave"/>
+            <Rectangle x:Name="Button1Rect" HorizontalAlignment="Center" Margin="0,364,0,0" Stroke="#FF3BA45C" Width="266" RadiusX="3" RadiusY="3" Height="28" VerticalAlignment="Top" Fill="#FF3BA45C" Cursor="Hand" PreviewMouseLeftButtonUp="Button1Rect_PreviewMouseLeftButtonUp"/>
+            <TextBox x:Name="Button1Key" HorizontalAlignment="Left" Margin="76,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Название" AutomationProperties.HelpText="Текст" MaxLines="1" MaxLength="20" Height="20" TextAlignment="Center" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed"/>
+            <TextBox x:Name="Button1Value" HorizontalAlignment="Left" Margin="158,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Ссылка" AutomationProperties.HelpText="Верхний текст" MaxLines="2" Height="20" TextAlignment="Left" VerticalScrollBarVisibility="Disabled" FontSize="11" Visibility="Collapsed"/>
+
+            <Rectangle x:Name="Button2Rect" HorizontalAlignment="Center" Margin="0,397,0,0" Stroke="#FF3BA45C" Width="266" RadiusX="3" RadiusY="3" Fill="#FF3BA45C" Height="28" VerticalAlignment="Top" Cursor="Help" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
+            <TextBox x:Name="Button2Key" HorizontalAlignment="Left" Margin="76,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Название" AutomationProperties.HelpText="Текст" MaxLines="1" MaxLength="20" Height="20" TextAlignment="Center" VerticalScrollBarVisibility="Disabled" Visibility="Collapsed"/>
+            <TextBox x:Name="Button2Value" HorizontalAlignment="Left" Margin="158,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Ссылка" AutomationProperties.HelpText="Верхний текст" MaxLines="2" Height="20" TextAlignment="Left" VerticalScrollBarVisibility="Disabled" FontSize="11" Visibility="Collapsed"/>
+
+            <TextBlock Margin="68,0,228,122" TextWrapping="Wrap" Text="НЕТ РОЛЕЙ" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold" Height="19" VerticalAlignment="Bottom"/>
+
+
+            <TextBlock x:Name="NoteTitle" Margin="68,0,226,85" TextWrapping="Wrap" Text="ЗАМЕТКА" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold" Height="19" VerticalAlignment="Bottom"/>
+            <Rectangle x:Name="NoteBox" HorizontalAlignment="Center" Margin="0,0,0,44" Stroke="#FF202225" Width="264" RadiusX="8" RadiusY="8" Fill="#FF202225" Height="36" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="GuideTextBlock" HorizontalAlignment="Center" Margin="0,0,0,54" TextWrapping="Wrap" Text="Гайд на все приложение." Foreground="#FFAFB1B4" Cursor="Hand" MouseEnter="GuideTextBlock_MouseEnter" MouseLeave="GuideTextBlock_MouseLeave" Width="248" PreviewMouseLeftButtonDown="GuideTextBlock_PreviewMouseLeftButtonDown" Height="16" VerticalAlignment="Bottom"/>
+            <TextBlock x:Name="StopTextBlock" HorizontalAlignment="Center" Margin="0,0,0,27" TextWrapping="Wrap" Text="Приостановить работу данного приложения." Foreground="#FFAFB1B4" FontSize="9" Cursor="Hand" PreviewMouseLeftButtonDown="StopTextBlock_PreviewMouseLeftButtonDown" MouseEnter="StopTextBlock_MouseEnter" MouseLeave="StopTextBlock_MouseLeave" VerticalAlignment="Bottom"/>
+            <Rectangle HorizontalAlignment="Left" Height="28" Margin="-75,238,0,0" Stroke="White" VerticalAlignment="Top" Width="34"/>
+
+            <Image x:Name="Button1Plus" HorizontalAlignment="Center" Height="24" Margin="0,366,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/plus.png" Cursor="Hand" PreviewMouseLeftButtonDown="Button1Rect_PreviewMouseLeftButtonUp"/>
+            <Image x:Name="Button2Plus" HorizontalAlignment="Center" Height="24" Margin="0,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/plus.png" Cursor="Hand" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
+            <Image x:Name="Delete1Button" HorizontalAlignment="Left" Height="24" Margin="43,364,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete1Button_PreviewMouseLeftButtonUp"/>
+            <Image x:Name="Delete2Button" HorizontalAlignment="Left" Height="24" Margin="43,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete2Button_PreviewMouseLeftButtonUp"/>
+
+
         </Grid>
     </Grid>
 </Window>
