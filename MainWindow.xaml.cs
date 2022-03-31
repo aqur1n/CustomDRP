@@ -1,11 +1,11 @@
-﻿using System;
+﻿using IWshRuntimeLibrary;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using IWshRuntimeLibrary;
 
 namespace CustomDRP
 {
@@ -20,9 +20,18 @@ namespace CustomDRP
         private string Enable = "1";
         private List<string> Buttons = new();
 
+        private AnimateManager animateManager = new(30);
+
         public MainWindow(string pathsave)
         {
             InitializeComponent();
+            // Запуск анимационного менеджера.
+            animateManager.Start();
+
+            // TEST
+            Animate LoadAnimate = new(Load, 0, 30, true);
+            animateManager.Play(LoadAnimate);
+
             PathSave = pathsave;
 
             Config = new Config();
@@ -35,7 +44,7 @@ namespace CustomDRP
             SmallBox.IsChecked = data["SmallIcon"] == "1";
 
             // Добавление кнопок.
-            if (data["Buttons"] != " " && data["Buttons"] != ",;,")
+            if (data["Buttons"] != ",;,")
             {
                 int i = 0;
                 foreach (string button in data["Buttons"].Split(";"))
@@ -65,27 +74,25 @@ namespace CustomDRP
 
         private void ButtonsUpdate()
         {
-            
+
             if (Buttons.Count < 2)
             {
-                Button2Plus.Visibility = Visibility.Collapsed; Button2Rect.Visibility = Visibility.Collapsed;
-                Delete2Button.Visibility = Visibility.Collapsed;
+                Button2Plus.Visibility = Visibility.Hidden; Button2Rect.Visibility = Visibility.Hidden;
+                Delete2Button.Visibility = Visibility.Hidden;
 
                 Button2Rect.Cursor = Cursors.Hand;
 
                 Button2Key.IsEnabled = false; Button2Value.IsEnabled = false;
 
-                //Button2Plus.Visibility = Visibility.Visible;
-
                 Button2Value.Clear(); Button2Key.Clear();
-            
+
 
                 this.Height = 555;
             }
 
             if (Buttons.Count >= 1)
             {
-                Button1Plus.Visibility = Visibility.Collapsed;
+                Button1Plus.Visibility = Visibility.Hidden;
                 Button1Rect.Cursor = Cursors.Arrow;
 
                 Button1Key.Visibility = Visibility.Visible; Button1Value.Visibility = Visibility.Visible;
@@ -99,11 +106,11 @@ namespace CustomDRP
                 Button2Rect.Visibility = Visibility.Visible;
 
             }
-            else 
-            { 
+            else
+            {
                 Button1Rect.Cursor = Cursors.Hand;
                 Button1Plus.Visibility = Visibility.Visible;
-                Delete1Button.Visibility = Visibility.Collapsed;
+                Delete1Button.Visibility = Visibility.Hidden;
                 Button1Key.IsEnabled = false; Button1Value.IsEnabled = false;
 
                 Button1Value.Clear(); Button1Key.Clear();
@@ -111,7 +118,7 @@ namespace CustomDRP
 
             if (Buttons.Count == 2)
             {
-                Button2Plus.Visibility = Visibility.Collapsed;
+                Button2Plus.Visibility = Visibility.Hidden;
                 Button2Rect.Cursor = Cursors.Arrow;
 
                 Button2Key.Visibility = Visibility.Visible; Button2Value.Visibility = Visibility.Visible;
@@ -119,6 +126,8 @@ namespace CustomDRP
                 Button2Key.IsEnabled = true; Button2Value.IsEnabled = true;
             }
         }
+
+        private void Show(string message) { _ = new MessageWindow(this, message); }
 
         // Меняет цвет при наведении.
         private static void ChangeBackground(TextBlock textblock, bool state)
@@ -149,7 +158,7 @@ namespace CustomDRP
                 ["Details"] = Details.Text,
                 ["State"] = State.Text,
                 ["Buttons"] = $"{Button1Key.Text},{Button1Value.Text};{Button2Key.Text},{Button2Value.Text}",
-                ["SmallIcon"] = (bool)SmallBox.IsChecked ? "1" : "0" ,
+                ["SmallIcon"] = (bool)SmallBox.IsChecked ? "1" : "0",
                 ["Enable"] = Enable
             };
 
@@ -179,22 +188,28 @@ namespace CustomDRP
 
 
         // Кнопка X
-        private void CloseText_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        internal void CloseText_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             SaveConfig();
 
-            this.Close();
+            this.Hide();
 
             try
             {
                 Drp drp = new(PathSave);
                 drp.Start();
-            } catch (Exception ex) { _ = new MessageWindow(ex.Message); }
+            }
+            catch (ArgumentException ex)
+            {
+                this.Show();
+                Show($"Произошла ошибка при попытки запустить статус!\n{ex.Message}");
+            }
+
         }
 
-        private void CloseText_MouseEnter(object sender, MouseEventArgs e) => ChangeBackground(CloseText, true);
+        internal void CloseText_MouseEnter(object sender, MouseEventArgs e) => ChangeBackground(CloseText, true);
 
-        private void CloseText_MouseLeave(object sender, MouseEventArgs e) => ChangeBackground(CloseText, false);
+        internal void CloseText_MouseLeave(object sender, MouseEventArgs e) => ChangeBackground(CloseText, false);
         // ~~~~~~~~
 
         // Кнопка для сворачивании ( - ).
@@ -280,7 +295,7 @@ namespace CustomDRP
 
         private void Delete1Button_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (Button2Plus.Visibility == Visibility.Collapsed)
+            if (Button2Plus.Visibility == Visibility.Hidden)
             {
                 Buttons[0] = Buttons[1];
 
@@ -292,7 +307,8 @@ namespace CustomDRP
                 Button2Key.Clear();
                 Button2Value.Clear();
             }
-            else { 
+            else
+            {
                 Buttons.RemoveAt(0);
 
                 Button1Key.Clear();

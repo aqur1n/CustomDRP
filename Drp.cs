@@ -11,17 +11,10 @@ namespace CustomDRP
         public DiscordRpcClient Client;
         Dictionary<string, string> data;
         Config config;
-        string FileSave;
-
-        public void Update()
-        {
-            this.data = config.Open(FileSave);
-        }
 
         public Drp(string pathsave)
         {
             config = new Config();
-            FileSave = pathsave + "\\config.cfg";
 
             data = config.Open(pathsave + "\\config.cfg");
 
@@ -41,16 +34,21 @@ namespace CustomDRP
             };
             if (data["SmallIcon"] == "1") { assets.SmallImageKey = "2"; }
 
-            Button[] Buttons = new Button[2];
+            Button[] Buttons;
 
-            if (data["Buttons"] != " " && data["Buttons"] != ",;,")
+            if (data["Buttons"] != ",;,")
             {
                 int count = 0;
-                foreach (string button in data["Buttons"].Split(";"))
+                string[] buttons = data["Buttons"].Split(";");
+
+                if (buttons[1] != ",") { Buttons = new Button[2]; }
+                else { Buttons = new Button[1]; }
+
+                foreach (string button in buttons)
                 {
                     string[] b = button.Split(",");
 
-                    Buttons[count] = new Button
+                    if (Buttons.Length - 1 >= count) Buttons[count] = new Button
                     {
                         Label = b[0],
                         Url = b[1]
@@ -59,6 +57,7 @@ namespace CustomDRP
                     count++;
                 }
             }
+            else { Buttons = new Button[1]; }
 
             Client.SetPresence(new RichPresence()
             {
@@ -78,7 +77,7 @@ namespace CustomDRP
         }
 
         public void Deinitialize()
-        { 
+        {
             Client.Deinitialize();
         }
     }

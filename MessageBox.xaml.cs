@@ -11,12 +11,22 @@ namespace CustomDRP
     /// </summary>
     public partial class MessageWindow : Window
     {
-        public MessageWindow(string Text, string Title)
+        MainWindow window;
+
+        public MessageWindow(MainWindow window, string Text)
         {
+            this.window = window;
+            window.CloseText.MouseLeftButtonUp -= window.CloseText_MouseLeftButtonUp;
+            window.CloseText.Cursor = Cursors.Arrow;
+
+            window.CloseText.MouseEnter -= window.CloseText_MouseEnter;
+            window.CloseText.MouseLeave -= window.CloseText_MouseLeave;
+
             InitializeComponent();
 
-            TitleBlock.Text = Title;
             TextBlock.Text = Text;
+
+
 
             this.Show();
         }
@@ -29,7 +39,7 @@ namespace CustomDRP
 
             this.Show();
         }
-        
+
 
         public static void ChangeBackground(TextBlock textblock, bool state)
         {
@@ -43,7 +53,16 @@ namespace CustomDRP
         // Кнопка X
         private void CloseText_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Environment.Exit(0);
+            if (window is not null)
+            {
+                window.CloseText.MouseLeftButtonUp += window.CloseText_MouseLeftButtonUp;
+                window.CloseText.Cursor = Cursors.Hand;
+
+                window.CloseText.MouseEnter += window.CloseText_MouseEnter;
+                window.CloseText.MouseLeave += window.CloseText_MouseLeave;
+            }
+
+            this.Close();
         }
 
         private void CloseText_MouseEnter(object sender, MouseEventArgs e) => ChangeBackground(CloseText, true);
@@ -52,14 +71,18 @@ namespace CustomDRP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            if (window is not null)
+            {
+                window.CloseText.MouseLeftButtonUp += window.CloseText_MouseLeftButtonUp;
+                window.CloseText.Cursor = Cursors.Hand;
+
+                window.CloseText.MouseEnter += window.CloseText_MouseEnter;
+                window.CloseText.MouseLeave += window.CloseText_MouseLeave;
+            }
+
             this.Close();
         }
-
-        private void MinimizeText_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => this.WindowState = WindowState.Minimized;
-
-        private void MinimizeText_MouseEnter(object sender, MouseEventArgs e) => ChangeBackground(MinimizeText, true);
-
-        private void MinimizeText_MouseLeave(object sender, MouseEventArgs e) => ChangeBackground(MinimizeText, false);
 
         private void Window_StateChanged(object sender, EventArgs e) { if (WindowState == WindowState.Normal) { this.Topmost = true; this.Topmost = false; } }
     }

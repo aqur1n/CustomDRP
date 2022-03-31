@@ -28,11 +28,11 @@ namespace CustomDRP
             string Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\aqur1n-lab\\cdrp";
 
             if (!File.Exists(Path + "\\config.cfg"))
-            { 
+            {
                 Directory.CreateDirectory(Path);
                 using (FileStream fstream = new(Path + "\\config.cfg", FileMode.OpenOrCreate))
                 {
-                    byte[] buffer = Encoding.Default.GetBytes("AppID=Айди приложения\nDetails=Текст\nState=Подпись\nDate= \nButtons= \nSmallIcon=0\nEnable=0");
+                    byte[] buffer = Encoding.Default.GetBytes("AppID=Айди приложения\nDetails=Текст\nState=Подпись\nDate= \nButtons=,;,\nSmallIcon=0\nEnable=0");
                     fstream.Write(buffer, 0, buffer.Length);
                 }
             }
