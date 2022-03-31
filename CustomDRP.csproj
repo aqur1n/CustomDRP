@@ -30,7 +30,6 @@
     <None Remove="Resources\dff87c953f43b561d71fbcfe8a93a79a.png" />
     <None Remove="Resources\x.png" />
     <None Remove="\Resources\8a8375ab7908384e1fd6efe408284203.png" />
-    <None Remove="Fonts\VAG World.ttf" />
     <None Remove="\Resources\plus.png" />
   </ItemGroup>
 
@@ -52,13 +51,9 @@
 
   <ItemGroup>
     <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
-    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\VAG World.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\8a8375ab7908384e1fd6efe408284203.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

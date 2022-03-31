@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -9,9 +10,6 @@ using System.Windows.Media;
 
 namespace CustomDRP
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private string PathSave;
@@ -20,15 +18,16 @@ namespace CustomDRP
         private string Enable = "1";
         private List<string> Buttons = new();
 
-        private AnimateManager animateManager = new(30);
+        private AnimateManager animateManager;
 
         public MainWindow(string pathsave)
         {
             InitializeComponent();
             // Запуск анимационного менеджера.
+            animateManager = new(60, this);
             animateManager.Start();
 
-            // TEST
+            // Анимация загрузки.
             Animate LoadAnimate = new(Load, 0, 30, true);
             animateManager.Play(LoadAnimate);
 
@@ -74,7 +73,6 @@ namespace CustomDRP
 
         private void ButtonsUpdate()
         {
-
             if (Buttons.Count < 2)
             {
                 Button2Plus.Visibility = Visibility.Hidden; Button2Rect.Visibility = Visibility.Hidden;
@@ -85,9 +83,6 @@ namespace CustomDRP
                 Button2Key.IsEnabled = false; Button2Value.IsEnabled = false;
 
                 Button2Value.Clear(); Button2Key.Clear();
-
-
-                this.Height = 555;
             }
 
             if (Buttons.Count >= 1)
@@ -114,6 +109,8 @@ namespace CustomDRP
                 Button1Key.IsEnabled = false; Button1Value.IsEnabled = false;
 
                 Button1Value.Clear(); Button1Key.Clear();
+
+                this.Height = 555;
             }
 
             if (Buttons.Count == 2)
@@ -126,8 +123,6 @@ namespace CustomDRP
                 Button2Key.IsEnabled = true; Button2Value.IsEnabled = true;
             }
         }
-
-        private void Show(string message) { _ = new MessageWindow(this, message); }
 
         // Меняет цвет при наведении.
         private static void ChangeBackground(TextBlock textblock, bool state)
@@ -202,7 +197,7 @@ namespace CustomDRP
             catch (ArgumentException ex)
             {
                 this.Show();
-                Show($"Произошла ошибка при попытки запустить статус!\n{ex.Message}");
+                MessageBox.Show($"Произошла ошибка при попытки запустить статус!\n{ex.Message}", "CustomDRP");
             }
 
         }
@@ -257,7 +252,7 @@ namespace CustomDRP
 
         private void GuideTextBlock_MouseLeave(object sender, MouseEventArgs e) { GuideTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(175, 177, 180)); }
 
-        private void GuideTextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) => Process.Start(new ProcessStartInfo("cmd", $"/c start https://discord.gg/HbtSHsWv4b") { CreateNoWindow = true });
+        private void GuideTextBlock_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e) => Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/aqur1n/CustomDRP/blob/master/README.md") { CreateNoWindow = true });
 
         private void Button1Rect_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -287,8 +282,8 @@ namespace CustomDRP
         {
             Buttons.RemoveAt(1);
 
-            Button2Key.Clear();
-            Button2Value.Clear();
+            Button2Key.Text = "";
+            Button2Value.Text = "";
 
             ButtonsUpdate();
         }
@@ -303,9 +298,6 @@ namespace CustomDRP
                 Button1Value.Text = Button2Value.Text;
 
                 Buttons.RemoveAt(1);
-
-                Button2Key.Clear();
-                Button2Value.Clear();
             }
             else
             {
@@ -314,7 +306,7 @@ namespace CustomDRP
                 Button1Key.Clear();
                 Button1Value.Clear();
             }
-
+            
             ButtonsUpdate();
         }
     }

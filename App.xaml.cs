@@ -40,6 +40,9 @@ namespace CustomDRP
             if (e.Args.Length == 0)
             {
                 MainWindow window = new(Path);
+                window.Load.Visibility = Visibility.Visible;
+                window.Load.IsEnabled = true;
+
                 window.Show();
             }
             else if (e.Args[0] == "--no-ui" || e.Args[0] == "--no-gui")
@@ -49,7 +52,7 @@ namespace CustomDRP
             }
             else
             {
-                _ = new MessageWindow("Запуск с неправильным(и) аргументом(ами)!");
+                MessageBox.Show("Запуск с неправильным(и) аргументом(ами)!");
             }
         }
     }

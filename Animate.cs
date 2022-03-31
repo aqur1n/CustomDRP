@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace CustomDRP
@@ -8,27 +9,50 @@ namespace CustomDRP
     internal class AnimateManager
     {
         public int fps = 30;
-        private DispatcherTimer dispatcherTimer;
-        private List<Animate> Animates = new List<Animate>();
+        internal DispatcherTimer dispatcherTimer;
+        private List<Animate> Animates = new();
 
         public AnimateManager(int fps)
         {
             this.fps = fps;
 
-            this.dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(this.Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, (int)(1000 / fps));
         }
 
-        public void Play(Animate animate) { Animates.Add(animate); }
+        private MainWindow window;
 
-        public void Start() { this.dispatcherTimer.Start(); }
+        public AnimateManager(int fps, MainWindow window)
+        {
+            this.fps = fps;
+            this.window = window;
 
-        public void Stop() { this.dispatcherTimer.Stop(); }
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(this.Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, (int)(1000 / fps));
+        }
+
+        public void Play(Animate animate) { animate.Frame = 0; Animates.Add(animate); }
+
+        public bool IsActive(Animate animate)
+        { 
+            return Animates.Contains(animate);
+        }
+
+        public void Start() { dispatcherTimer.Start(); }
+
+        public void Stop() { dispatcherTimer.Stop(); }
 
         private int Frame = 0;
         // Остаток для фрейма анимации
         private int frame = 0;
+
+        private static void Draw(Animate animate)
+        {
+            animate.ApplyFrame(animate.Frame);
+            animate.Frame++;
+        }
 
         public void Tick(object sender, EventArgs e)
         {
@@ -39,11 +63,22 @@ namespace CustomDRP
             if (animate.Frame > animate.MaxFrames) { Animates.Remove(animate); if (animate.OnDelete) { animate.Delete(); } return; }
 
             // будет ждать, если установлено значение wait
-            if (animate.wait <= ((float)Frame * (float)this.fps) / 1000f + 0.1f)
+            if (animate.wait != 0)
             {
-                animate.ApplyFrame(animate.Frame);
+                if (animate.wait <= Frame * dispatcherTimer.Interval.Milliseconds)
+                {
+                    Draw(animate);
 
-                animate.Frame++;
+                    if (fps < animate.MaxFrames)
+                    {
+                        animate.wait += (int)(fps / animate.MaxFrames) * dispatcherTimer.Interval.Milliseconds;
+                    }
+                    else { animate.wait = 0; }
+                }
+            } 
+            else
+            {
+                Draw(animate);
             }
 
             Frame++;
@@ -55,48 +90,60 @@ namespace CustomDRP
         private int EffectType;
         public int Frame = 0;
         public int MaxFrames;
-        private dynamic Obj;
+        internal UIElement Obj;
 
-        public int wait = 0;
+        public int wait = 1;
         public bool OnDelete = false;
 
-        public Animate(dynamic obj, int effectType, int frames, bool delete)
+        public Position Pos;
+
+        public Animate(UIElement obj, int effectType, int frames, bool delete)
         {
-            this.OnDelete = delete;
+            OnDelete = delete;
 
-            this.EffectType = effectType;
-            this.MaxFrames = frames;
-            this.Obj = obj;
+            EffectType = effectType;
+            MaxFrames = frames;
+            Obj = obj;
 
-            this.StartOpacity = (float)obj.Opacity;
+            StartOpacity = (float)obj.Opacity;
         }
 
-        public void Wait(int seconds) { this.wait = seconds; }
+        public Animate(UIElement obj, int effectType, int frames, Position pos)
+        {
+            Pos = pos;
+
+            EffectType = effectType;
+            MaxFrames = frames;
+            Obj = obj;
+
+            StartOpacity = (float)obj.Opacity;
+        }
+
+        public void Wait(int miliseconds) { this.wait = miliseconds; }
 
         public void Delete()
-        { 
-            this.Obj.IsEnabled = false;
-            this.Obj.Visibility = Visibility.Hidden;
-        }
-
-        private static float Limit(float x, float z, float y)
         {
-            if (x <= y && x >= z) { return x; }
-            else if (x > y) { return y; }
-            else { return z; }
+            Obj.IsEnabled = false;
+            Obj.Visibility = Visibility.Hidden;
         }
 
         private float StartOpacity = 0f;
 
         public void ApplyFrame(int frame)
         {
-            if (EffectType == 0)
+            float koef = (float)frame / (float)this.MaxFrames;
+
+            if (EffectType == 0) // Затухание
             {
-                this.Obj.Opacity = Limit(StartOpacity - (float)frame / (float)this.MaxFrames, 0f, 1f);
+                Obj.Opacity = Other.Limit(StartOpacity - koef, 0f, 1f);
             }
-            else if (EffectType == 1)
+            else if (EffectType == 1) // Появление
             {
-                this.Obj.Opacity = Limit(StartOpacity + ((float)frame / (float)this.MaxFrames), 0f, 1f);
+                Obj.Opacity = Other.Limit(StartOpacity + koef, 0f, 1f);
+            }
+            else if (EffectType == 2) // Перемещение
+            {
+                Obj.RenderTransform = new TranslateTransform(Effect.Racing(Pos.X * koef, Pos.X), Effect.Racing(Pos.Y * koef, Pos.Y));
             }
         }
     }
