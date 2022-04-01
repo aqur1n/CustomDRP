@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>CustomDRP.App</StartupObject>
@@ -12,14 +12,16 @@
     <SignAssembly>False</SignAssembly>
     <Company>$(Authors)</Company>
     <PackageIcon>Resources\icon.png</PackageIcon>
-    <FileVersion>0.9.1</FileVersion>
+    <FileVersion>1.0</FileVersion>
     <Copyright>aqur1n-lab</Copyright>
     <Description>aqur1n-lab</Description>
     <NeutralLanguage>ru</NeutralLanguage>
+    <AssemblyVersion>1.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,16 +19,21 @@ namespace CustomDRP
 
         private AnimateManager animateManager;
 
+        Animate[] LoadedAnimates;
         public MainWindow(string pathsave)
         {
             InitializeComponent();
             // Запуск анимационного менеджера.
-            animateManager = new(60, this);
+            animateManager = new(30);
             animateManager.Start();
 
             // Анимация загрузки.
-            Animate LoadAnimate = new(Load, 0, 30, true);
-            animateManager.Play(LoadAnimate);
+            LoadedAnimates = new Animate[1] 
+            { 
+                new Animate(Load, 0, 30, true)
+            };
+
+            animateManager.Play(LoadedAnimates[0]);
 
             PathSave = pathsave;
 
@@ -131,21 +135,12 @@ namespace CustomDRP
             else { textblock.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)); }
         }
 
-        private static bool IsDigint(string String)
-        {
-            for (int i = 0; i < String.Length; i++)
-            {
-                if (!char.IsDigit(String, i)) { return false; }
-            }
-            return true;
-        }
-
         private void SaveConfig()
         {
 
             if (string.IsNullOrEmpty(State.Text)) { State.Text = " "; }
             if (string.IsNullOrEmpty(Details.Text)) { Details.Text = " "; }
-            if (string.IsNullOrEmpty(AppId.Text) || !IsDigint(AppId.Text)) { AppId.Text = "957182426566754304"; }
+            if (string.IsNullOrEmpty(AppId.Text) || !Other.IsDigit(AppId.Text)) { AppId.Text = "957182426566754304"; }
 
             Dictionary<string, string> config = new Dictionary<string, string>()
             {
@@ -160,22 +155,7 @@ namespace CustomDRP
             Config.Save(PathSave + "\\config.cfg", config);
 
             // Если не будет ярлыка автозапуска, создаст новый.
-            string authoRunFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                    "\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\CustomDRP.lnk";
-            if (Enable == "1")
-            {
-                WshShell wshShell = new();
-                IWshShortcut Shortcut;
-
-                Shortcut = (IWshShortcut)wshShell.CreateShortcut(authoRunFile);
-
-                Shortcut.TargetPath = Environment.CurrentDirectory + "\\CustomDRP.exe";
-                Shortcut.Arguments = "--no-ui";
-                Shortcut.WorkingDirectory = Environment.CurrentDirectory;
-                Shortcut.IconLocation = Environment.CurrentDirectory + "\\CustomDRP.exe";
-
-                Shortcut.Save();
-            }
+            if (Enable == "1") { Other.CreateShotcut(); }
         }
 
         // Вызывается при нажатии мыши на пустом окне.
@@ -194,7 +174,7 @@ namespace CustomDRP
                 Drp drp = new(PathSave);
                 drp.Start();
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 this.Show();
                 MessageBox.Show($"Произошла ошибка при попытки запустить статус!\n{ex.Message}", "CustomDRP");
@@ -306,7 +286,7 @@ namespace CustomDRP
                 Button1Key.Clear();
                 Button1Value.Clear();
             }
-            
+
             ButtonsUpdate();
         }
     }

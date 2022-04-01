@@ -50,23 +50,25 @@ namespace CustomDRP
 
                     if (Buttons.Length - 1 >= count) Buttons[count] = new Button
                     {
-                        Label = b[0],
-                        Url = b[1]
+                        Label = string.IsNullOrEmpty(b[0]) ? "Создано CustomDRP" : b[0],
+                        Url = string.IsNullOrEmpty(b[1]) ? "https://discord.gg/HbtSHsWv4b" : b[1]
                     };
 
                     count++;
                 }
             }
-            else { Buttons = new Button[1]; }
+            else { Buttons = Array.Empty<Button>(); }
 
-            Client.SetPresence(new RichPresence()
+            RichPresence rp = new()
             {
                 Assets = assets,
                 Details = data["Details"],
-                State = data["State"],
-                Buttons = Buttons
+                State = data["State"]
+            };
 
-            });
+            if (Buttons.Length != 0) { rp.Buttons = Buttons; }
+
+            Client.SetPresence(rp);
         }
         public void Start()
         {

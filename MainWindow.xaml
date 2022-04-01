@@ -53,19 +53,21 @@
             </Grid>
 
             <Grid x:Name="Button2">
-                <Rectangle x:Name="Button2Rect" HorizontalAlignment="Center" Margin="0,397,0,0" Stroke="#FF3BA45C" Width="266" RadiusX="3" RadiusY="3" Fill="#FF3BA45C" Height="28" VerticalAlignment="Top" Cursor="Help" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
+                <Rectangle x:Name="Button2Rect" HorizontalAlignment="Left" Margin="67,397,0,0" Stroke="#FF3BA45C" Width="266" RadiusX="3" RadiusY="3" Fill="#FF3BA45C" Height="28" VerticalAlignment="Top" Cursor="Help" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
                 <TextBox x:Name="Button2Key" HorizontalAlignment="Left" Margin="76,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Название" AutomationProperties.HelpText="Текст" MaxLines="1" MaxLength="20" Height="20" TextAlignment="Center" VerticalScrollBarVisibility="Disabled" Visibility="Visible"/>
                 <TextBox x:Name="Button2Value" HorizontalAlignment="Left" Margin="158,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Ссылка" AutomationProperties.HelpText="Верхний текст" MaxLines="2" Height="20" TextAlignment="Left" VerticalScrollBarVisibility="Disabled" FontSize="11" Visibility="Visible"/>
-                <Image x:Name="Button2Plus" HorizontalAlignment="Center" Height="24" Margin="0,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/plus.png" Cursor="Hand" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
+                <Image x:Name="Button2Plus" HorizontalAlignment="Left" Height="24" Margin="188,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/plus.png" Cursor="Hand" PreviewMouseLeftButtonUp="Button2Rect_PreviewMouseLeftButtonUp"/>
+                <Image x:Name="Delete2Button" HorizontalAlignment="Left" Height="24" Margin="43,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete2Button_PreviewMouseLeftButtonUp"/>
             </Grid>
-            
+
             <Grid x:Name="Button1">
                 <Rectangle x:Name="Button1Rect" HorizontalAlignment="Center" Margin="0,364,0,0" Stroke="#FF3BA45C" Width="266" RadiusX="3" RadiusY="3" Height="28" VerticalAlignment="Top" Fill="#FF3BA45C" Cursor="Hand" PreviewMouseLeftButtonUp="Button1Rect_PreviewMouseLeftButtonUp"/>
                 <TextBox x:Name="Button1Key" HorizontalAlignment="Left" Margin="76,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Название" AutomationProperties.HelpText="Текст" MaxLines="1" MaxLength="20" Height="20" TextAlignment="Center" VerticalScrollBarVisibility="Disabled" Visibility="Visible"/>
                 <TextBox x:Name="Button1Value" HorizontalAlignment="Left" Margin="158,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Background="{x:Null}" Foreground="White" FontWeight="Normal" BorderBrush="{x:Null}" CaretBrush="#FF0593C2" SelectionTextBrush="{x:Null}" SelectionBrush="#FF0593C2" Text="Ссылка" AutomationProperties.HelpText="Верхний текст" MaxLines="2" Height="20" TextAlignment="Left" VerticalScrollBarVisibility="Disabled" FontSize="11" Visibility="Visible"/>
                 <Image x:Name="Button1Plus" HorizontalAlignment="Center" Height="24" Margin="0,366,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/plus.png" Cursor="Hand" PreviewMouseLeftButtonDown="Button1Rect_PreviewMouseLeftButtonUp"/>
+                <Image x:Name="Delete1Button" HorizontalAlignment="Left" Height="24" Margin="43,364,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete1Button_PreviewMouseLeftButtonUp"/>
             </Grid>
- 
+
             <TextBlock Margin="68,0,228,122" TextWrapping="Wrap" Text="НЕТ РОЛЕЙ" Foreground="#FFAFB1B4" FontSize="14" FontWeight="Bold" Height="19" VerticalAlignment="Bottom"/>
 
 
@@ -74,12 +76,9 @@
             <TextBlock x:Name="GuideTextBlock" HorizontalAlignment="Center" Margin="0,0,0,54" TextWrapping="Wrap" Text="Гайд на все приложение." Foreground="#FFAFB1B4" Cursor="Hand" MouseEnter="GuideTextBlock_MouseEnter" MouseLeave="GuideTextBlock_MouseLeave" Width="248" PreviewMouseLeftButtonDown="GuideTextBlock_PreviewMouseLeftButtonDown" Height="16" VerticalAlignment="Bottom"/>
             <TextBlock x:Name="StopTextBlock" HorizontalAlignment="Center" Margin="0,0,0,27" TextWrapping="Wrap" Text="Приостановить работу данного приложения." Foreground="#FFAFB1B4" FontSize="9" Cursor="Hand" PreviewMouseLeftButtonDown="StopTextBlock_PreviewMouseLeftButtonDown" MouseEnter="StopTextBlock_MouseEnter" MouseLeave="StopTextBlock_MouseLeave" VerticalAlignment="Bottom"/>
 
-            <Image x:Name="Delete1Button" HorizontalAlignment="Left" Height="24" Margin="43,364,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete1Button_PreviewMouseLeftButtonUp"/>
-            <Image x:Name="Delete2Button" HorizontalAlignment="Left" Height="24" Margin="43,399,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/x.png" Cursor="Hand" PreviewMouseLeftButtonUp="Delete2Button_PreviewMouseLeftButtonUp"/>
-
-            <Grid x:Name="Load" IsEnabled="False" Visibility="Hidden">
-                <Rectangle x:Name="LoadRect" HorizontalAlignment="Center" Height="566" Margin="0,22,0,0" Stroke="#FF36393F" VerticalAlignment="Top" Width="400" Fill="#FF36393F" IsEnabled="True"/>
-                <Image x:Name="LoadImage" HorizontalAlignment="Center" Height="400" Margin="0,0,0,0" VerticalAlignment="Center" Width="400" Source="/Resources/dff87c953f43b561d71fbcfe8a93a79a.png" Stretch="Uniform" IsEnabled="True"/>
+            <Grid x:Name="Load" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" Visibility="Hidden">
+                <Rectangle x:Name="LoadRect" HorizontalAlignment="Left" Height="566" Margin="0,22,0,0" Stroke="#FF36393F" VerticalAlignment="Top" Width="400" Fill="#FF36393F" IsEnabled="True"/>
+                <Image x:Name="LoadImage" HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="400" Source="/Resources/dff87c953f43b561d71fbcfe8a93a79a.png" Stretch="Uniform" IsEnabled="True" Margin="0,94,0,0"/>
             </Grid>
         </Grid>
     </Grid>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace CustomDRP
@@ -21,19 +20,8 @@ namespace CustomDRP
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, (int)(1000 / fps));
         }
 
-        private MainWindow window;
-
-        public AnimateManager(int fps, MainWindow window)
-        {
-            this.fps = fps;
-            this.window = window;
-
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(this.Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, (int)(1000 / fps));
-        }
-
         public void Play(Animate animate) { animate.Frame = 0; Animates.Add(animate); }
+        public void Play(Animate[] animates) { foreach (Animate animate in animates) { animate.Frame = 0; Animates.Add(animate); } }
 
         public bool IsActive(Animate animate)
         { 
@@ -45,8 +33,6 @@ namespace CustomDRP
         public void Stop() { dispatcherTimer.Stop(); }
 
         private int Frame = 0;
-        // Остаток для фрейма анимации
-        private int frame = 0;
 
         private static void Draw(Animate animate)
         {
@@ -56,31 +42,26 @@ namespace CustomDRP
 
         public void Tick(object sender, EventArgs e)
         {
-            try { frame = (int)(Frame % Animates.Count); } catch { return; }
 
-            Animate animate = Animates[frame];
-
-            if (animate.Frame > animate.MaxFrames) { Animates.Remove(animate); if (animate.OnDelete) { animate.Delete(); } return; }
-
-            // будет ждать, если установлено значение wait
-            if (animate.wait != 0)
+            for (int i = 0; i < Animates.Count; i++)
             {
+                Animate animate = Animates[i];
+
+                if (animate.Frame > animate.MaxFrames) { Animates.Remove(animate); if (animate.OnDelete) { animate.Delete(); } return; }
+
+                // будет ждать, если установлено значение wait
                 if (animate.wait <= Frame * dispatcherTimer.Interval.Milliseconds)
                 {
                     Draw(animate);
 
-                    if (fps < animate.MaxFrames)
-                    {
-                        animate.wait += (int)(fps / animate.MaxFrames) * dispatcherTimer.Interval.Milliseconds;
-                    }
-                    else { animate.wait = 0; }
-                }
-            } 
-            else
-            {
-                Draw(animate);
-            }
+                    animate.wait = 0;
 
+                }
+                else
+                {
+                    Draw(animate);
+                }
+            }
             Frame++;
         }
     }
@@ -90,14 +71,14 @@ namespace CustomDRP
         private int EffectType;
         public int Frame = 0;
         public int MaxFrames;
-        internal UIElement Obj;
+        internal FrameworkElement Obj;
 
-        public int wait = 1;
+        public int wait = 0;
         public bool OnDelete = false;
 
         public Position Pos;
 
-        public Animate(UIElement obj, int effectType, int frames, bool delete)
+        public Animate(FrameworkElement obj, int effectType, int frames, bool delete)
         {
             OnDelete = delete;
 
@@ -108,15 +89,17 @@ namespace CustomDRP
             StartOpacity = (float)obj.Opacity;
         }
 
-        public Animate(UIElement obj, int effectType, int frames, Position pos)
+        public Animate(FrameworkElement obj, int effectType, int frames, Position vector)
         {
-            Pos = pos;
+            Pos = vector;
 
             EffectType = effectType;
             MaxFrames = frames;
             Obj = obj;
 
             StartOpacity = (float)obj.Opacity;
+
+            if (effectType == 2) { obj.HorizontalAlignment = HorizontalAlignment.Left; obj.VerticalAlignment = VerticalAlignment.Top; }
         }
 
         public void Wait(int miliseconds) { this.wait = miliseconds; }
@@ -141,10 +124,11 @@ namespace CustomDRP
             {
                 Obj.Opacity = Other.Limit(StartOpacity + koef, 0f, 1f);
             }
-            else if (EffectType == 2) // Перемещение
-            {
-                Obj.RenderTransform = new TranslateTransform(Effect.Racing(Pos.X * koef, Pos.X), Effect.Racing(Pos.Y * koef, Pos.Y));
-            }
+            //else if (EffectType == 2) // Перемещение
+            //{
+            //    //MessageBox.Show($"koef - {koef}, Pos.Y - {Pos.Y}");
+            //    Obj.Margin = new Thickness(Effect.Linear(Pos.X * koef, Pos.X, (float)Obj.Margin.Left), Effect.Linear(Pos.Y, Pos.Y, (float)Obj.Margin.Top), 0, 0);
+            //}
         }
     }
 }

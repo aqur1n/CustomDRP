@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 
@@ -11,7 +13,7 @@ namespace CustomDRP
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             Process[] processes = Process.GetProcessesByName("CustomDRP");
             if (processes.Length >= 2)
@@ -39,6 +41,21 @@ namespace CustomDRP
 
             if (e.Args.Length == 0)
             {
+                // Проверка версий
+                try
+                {
+                    var Client = new HttpClient();
+                    string Version = await Client.GetStringAsync("https://raw.githubusercontent.com/aqur1n/CustomDRP/master/Version.txt");
+
+                    if (Version != Assembly.GetExecutingAssembly().GetName().Version.ToString())
+                    {
+                        if (char.IsDigit(Version, Version.Length - 2)) { MessageBox.Show("Вышла новая версия, загрузите ее из основного репозитория.", "CustomDRP"); }
+                    }
+
+                }
+                catch {}
+
+
                 MainWindow window = new(Path);
                 window.Load.Visibility = Visibility.Visible;
                 window.Load.IsEnabled = true;
@@ -52,7 +69,7 @@ namespace CustomDRP
             }
             else
             {
-                MessageBox.Show("Запуск с неправильным(и) аргументом(ами)!");
+                MessageBox.Show("Запуск с неправильным(и) аргументом(ами)!", "CustomDRP");
             }
         }
     }
