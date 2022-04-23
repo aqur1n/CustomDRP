@@ -12,11 +12,11 @@
     <SignAssembly>False</SignAssembly>
     <Company>$(Authors)</Company>
     <PackageIcon>Resources\icon.png</PackageIcon>
-    <FileVersion>1.0</FileVersion>
+    <FileVersion>1.0.0.1</FileVersion>
     <Copyright>aqur1n-lab</Copyright>
     <Description>aqur1n-lab</Description>
     <NeutralLanguage>ru</NeutralLanguage>
-    <AssemblyVersion>1.0</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

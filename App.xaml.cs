@@ -47,6 +47,8 @@ namespace CustomDRP
                     var Client = new HttpClient();
                     string Version = await Client.GetStringAsync("https://raw.githubusercontent.com/aqur1n/CustomDRP/master/Version.txt");
 
+                    // MessageBox.Show(Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
                     if (Version != Assembly.GetExecutingAssembly().GetName().Version.ToString())
                     {
                         if (char.IsDigit(Version, Version.Length - 2)) { MessageBox.Show("Вышла новая версия, загрузите ее из основного репозитория.", "CustomDRP"); }
