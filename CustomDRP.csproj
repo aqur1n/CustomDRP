@@ -17,15 +17,18 @@
     <Description>aqur1n-lab</Description>
     <NeutralLanguage>ru</NeutralLanguage>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <Authors>$(AssemblyName),aqur1n-lab</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <Optimize>True</Optimize>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
